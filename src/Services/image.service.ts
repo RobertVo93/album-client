@@ -74,9 +74,9 @@ export class Imageservice {
      * @param album album
      * @param fname file name
      */
-    public async delete(album: string, fname: string): Promise<any> {
+    public async delete(album: string, fname: string): Promise<CommonResponse> {
         try {
-            const res = await commonAPI.delete(`${ServerUploadURL}/${album}/${fname}`);
+            const res = await commonAPI.delete<string, AxiosResponse<CommonResponse>>(`${ServerUploadURL}/${album}/${fname}`);
             return commonAPI.success(res);
         }
         catch (e) {

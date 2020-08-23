@@ -21,7 +21,6 @@ interface ToolbarProps {
 }
 
 interface ToolbarState {
-    recordPerPage: any,
     album: string,
     open: boolean,
     selectedFile: any[],
@@ -33,7 +32,6 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            recordPerPage: 25,
             open: false,
             selectedFile: [],
             albumOptions: [
@@ -52,9 +50,7 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
      * fire event onclick upload button
      */
     onClickUpload = () => {
-        this.setState({
-            open: true
-        });
+        this.setState({ open: true });
     }
 
     /**
@@ -65,31 +61,19 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
     }
 
     /**
+     * Handle close modal
+     */
+    onCloseModal = () => {
+        this.setState({ open: false });
+    }
+
+    /**
      * Handle action select album
      * @param event event
      */
     onSelectAlbumChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         this.setState({
             album: event.target.value as string
-        });
-    }
-
-    /**
-     * Handle change number of record per page
-     * @param event event
-     */
-    onPagingChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        this.setState({
-            recordPerPage: event.target.value as string
-        });
-    }
-
-    /**
-     * Handle close modal
-     */
-    onCloseModal = () => {
-        this.setState({
-            open: false
         });
     }
 
@@ -159,22 +143,6 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
                         >
                             Upload
                         </Button>
-                    </div>
-                    <div style={RightToolbarStyle}>
-                        |
-                    </div>
-                    <div style={RightToolbarStyle}>
-                        <FormControl>
-                            <Select
-                                value={this.state.recordPerPage}
-                                onChange={this.onPagingChange}
-                            >
-                                <MenuItem value={25}>25</MenuItem>
-                                <MenuItem value={50}>50</MenuItem>
-                                <MenuItem value={100}>100</MenuItem>
-                                <MenuItem value={0}>All</MenuItem>
-                            </Select>
-                        </FormControl>
                     </div>
                 </div>
                 <Modal
